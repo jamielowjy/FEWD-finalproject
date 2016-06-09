@@ -26,7 +26,7 @@ $(document).ready(function (e) {
   })
 
   // smooth scrolling on anchor links
-  $('a').click(function (e) {
+  $('a[href^="#"]').click(function (e) {
     e.preventDefault()
     $('html, body').animate({
       scrollTop: $($.attr(this, 'href')).offset().top
@@ -46,16 +46,18 @@ $(document).ready(function (e) {
   sr.reveal('.detail', { duration: 800 }, 80)
 })
 
-// splash colour spectrum animation
-spectrum()
-function spectrum () {
-  // RANDOM COLOURS WOOHOO
-  // var hue = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')'
-  // BLUE HUES ONLY
-  h = 230
-  s = Math.floor(Math.random() * 100)
-  l = Math.floor(Math.random() * 25)
-  var hue = 'hsl(' + h + ', ' + s + '%, ' + l + '%)'
-  $('#splash').animate({ backgroundColor: hue }, 3000)
-  spectrum()
-}
+// follow mouse cursor animation http://www.onextrapixel.com/2014/04/09/create-an-interactive-moving-backgroundobject-that-reacts-to-viewers-cursor/
+$('.movej').interactive_bg({
+  strength: 25,
+  scale: 1.05,
+  animationSpeed: '100ms',
+  contain: true,
+  wrapContent: true
+})
+
+$(window).resize(function () {
+  $('.movej > .ibg-bg').css({
+    width: $(window).outerWidth(),
+    height: $(window).outerHeight()
+  })
+})
